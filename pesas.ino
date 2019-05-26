@@ -64,6 +64,33 @@ void loop() {
       encenderLed(state1_no,luz_juez1_no);
       apagarOtro(luz_juez1_ok,state1_ok,val1_ok,old_val1_ok);  
     }
+  //Segundo Juez
+    //Boton OK
+    val2_ok = digitalRead(btn_juez2_ok);
+    if ((val2_ok==HIGH && old_val2_ok==0) || (val2_ok==LOW && old_val2_ok==1))//
+    {
+      Serial.println("valor:");
+      Serial.println(val2_ok);
+      Serial.println("old val:");
+      Serial.println(old_val2_ok);
+      antirebote(val2_ok,old_val2_ok,state2_ok); 
+      old_val2_ok = val2_ok;
+      encenderLed(state2_ok,luz_juez2_ok);
+      apagarOtro(luz_juez2_no,state2_no,val2_no,old_val2_no); 
+    }
+    //Boton NO
+    val2_no = digitalRead(btn_juez2_no);
+    if ((val2_no==HIGH && old_val2_no==0) || (val2_no==LOW && old_val2_no==1))//
+    {
+      Serial.println("valor_no:");
+      Serial.println(val2_no);
+      Serial.println("old val_no:");
+      Serial.println(old_val2_no);
+      antirebote(val2_no,old_val2_no,state2_no); 
+      old_val2_no = val2_no;
+      encenderLed(state2_no,luz_juez2_no);
+      apagarOtro(luz_juez2_ok,state2_ok,val2_ok,old_val2_ok);  
+    }
 }
 
 int antirebote(int valor, int old_valor, bool &estado){
