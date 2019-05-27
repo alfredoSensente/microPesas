@@ -39,58 +39,54 @@ void setup() {
 }
 
 void loop() {
-    //Primer Juez
+  //////////////////////////////////////////////////////////////////Primer Juez
     //Boton OK
     val1_ok = digitalRead(btn_juez1_ok);
-    if ((val1_ok==HIGH && old_val1_ok==0) || (val1_ok==LOW && old_val1_ok==1))//
+    if ((val1_ok==HIGH && old_val1_ok==0) || (val1_ok==LOW && old_val1_ok==1))
     {
       antirebote(val1_ok,old_val1_ok,state1_ok); 
       old_val1_ok = val1_ok;
-      encenderLed(state1_ok,luz_juez1_ok);
-      apagarOtro(luz_juez1_no,state1_no,val1_no,old_val1_no);
+      encenderLed(state1_ok,luz_juez1_ok,luz_juez1_no);
       votar(state1_ok,voto1); 
     }
     //Boton NO
     val1_no = digitalRead(btn_juez1_no);
-    if ((val1_no==HIGH && old_val1_no==0) || (val1_no==LOW && old_val1_no==1))//
+    if ((val1_no==HIGH && old_val1_no==0) || (val1_no==LOW && old_val1_no==1))
     {
       antirebote(val1_no,old_val1_no,state1_no); 
       old_val1_no = val1_no;
-      encenderLed(state1_no,luz_juez1_no);
-      apagarOtro(luz_juez1_ok,state1_ok,val1_ok,old_val1_ok);  
+      encenderLed(state1_no,luz_juez1_no,luz_juez1_ok);
       votar(state1_no,voto1); 
     }
     
-  //Segundo Juez
+  //////////////////////////////////////////////////////////////////Segundo Juez
     //Boton OK
     val2_ok = digitalRead(btn_juez2_ok);
-    if ((val2_ok==HIGH && old_val2_ok==0) || (val2_ok==LOW && old_val2_ok==1))//
+    if ((val2_ok==HIGH && old_val2_ok==0) || (val2_ok==LOW && old_val2_ok==1))
     {
       antirebote(val2_ok,old_val2_ok,state2_ok); 
       old_val2_ok = val2_ok;
-      encenderLed(state2_ok,luz_juez2_ok);
-      apagarOtro(luz_juez2_no,state2_no,val2_no,old_val2_no); 
+      encenderLed(state2_ok,luz_juez2_ok,luz_juez2_no);
       votar(state2_ok,voto2); 
     }
     //Boton NO
     val2_no = digitalRead(btn_juez2_no);
-    if ((val2_no==HIGH && old_val2_no==0) || (val2_no==LOW && old_val2_no==1))//
+    if ((val2_no==HIGH && old_val2_no==0) || (val2_no==LOW && old_val2_no==1))
     {
       antirebote(val2_no,old_val2_no,state2_no); 
       old_val2_no = val2_no;
-      encenderLed(state2_no,luz_juez2_no);
-      apagarOtro(luz_juez2_ok,state2_ok,val2_ok,old_val2_ok);  
+      encenderLed(state2_no,luz_juez2_no,luz_juez2_ok);  
       votar(state2_no,voto2); 
     }
-    //Tercer Juez
+
+  ////////////////////////////////////////////////////////////////////Tercer Juez
     //Boton OK
     val3_ok = digitalRead(btn_juez3_ok);
-    if ((val3_ok==HIGH && old_val3_ok==0) || (val3_ok==LOW && old_val3_ok==1))//
+    if ((val3_ok==HIGH && old_val3_ok==0) || (val3_ok==LOW && old_val3_ok==1))
     {
       antirebote(val3_ok,old_val3_ok,state3_ok); 
       old_val3_ok = val3_ok;
-      encenderLed(state3_ok,luz_juez3_ok);
-      apagarOtro(luz_juez3_no,state3_no,val3_no,old_val3_no); 
+      encenderLed(state3_ok,luz_juez3_ok,luz_juez3_no);
       votar(state3_ok,voto3); 
     }
 }
@@ -103,16 +99,14 @@ int antirebote(int valor, int old_valor, bool &estado){
   }
   
 }
-int encenderLed(bool estado, int led){
-  if (estado==true)
+
+int encenderLed(bool estado, int led, int otroLed){
+  if (estado==true && digitalRead(otroLed)==LOW)
   {
     digitalWrite(led,HIGH);
   }
-  else
-  {
-    digitalWrite(led,LOW);
-  }
 }
+
 int apagarOtro(int led,bool &estado, int &valor, int &oldvalor){
   digitalWrite(led,LOW);
   estado=false;
