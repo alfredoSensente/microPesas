@@ -17,8 +17,7 @@
 int val1_ok = 0, val1_no = 0,val2_ok = 0, val2_no = 0,val3_ok = 0, val3_no = 0; //val se emplea para almacenar el estado del boton
 bool state1_ok= false, state1_no = false, state2_ok =false, state2_no = false, state3_ok = false, state3_no = false; // 0 LED apagado, mientras que 1 encendido
 int old_val1_ok = 0, old_val1_no = 0, old_val2_ok = 0, old_val2_no = 0, old_val3_ok = 0, old_val3_no = 0; // almacena el antiguo valor de val
-int contOk=0, contNo=0;
-bool voto1=false,voto2=false,voto3=false;
+bool voto1=false,voto2=false,voto3=false;//verifica si el juez ya votó
 void setup() {
   // put your setup code here, to run once:
   pinMode(luz_juez1_ok,OUTPUT);
@@ -79,7 +78,7 @@ void loop() {
       votar(state2_no,voto2); 
     }
 
-  ////////////////////////////////////////////////////////////////////Tercer Juez
+  //////////////////////////////////////////////////////////////////Tercer Juez
     //Boton OK
     val3_ok = digitalRead(btn_juez3_ok);
     if ((val3_ok==HIGH && old_val3_ok==0) || (val3_ok==LOW && old_val3_ok==1))
